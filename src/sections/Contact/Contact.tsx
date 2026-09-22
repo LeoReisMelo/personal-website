@@ -8,12 +8,12 @@ import styled from 'styled-components'
 
 import { Container } from '../../components/Container/Container'
 
-const CONTACT = {
+export const CONTACT = {
   email: 'contato@leonardoreismelo.com.br',
-  phone: '+55 00 00000-0000',
-  linkedin: 'https://www.linkedin.com/in/SEU-LINKEDIN',
-  github: 'https://github.com/SEU-GITHUB',
-  instagram: 'https://www.instagram.com/SEU-INSTAGRAM',
+  phone: '+55 (11) 94927-3405',
+  linkedin: 'https://www.linkedin.com/in/leonardoreismelo',
+  github: 'https://github.com/LeoReisMelo',
+  instagram: 'https://www.instagram.com/leonardoreis.dev',
 }
 
 const Section = styled.section`
@@ -427,7 +427,7 @@ export function Contact() {
               <DetailContent>
                 <DetailLabel>Location</DetailLabel>
                 <DetailValue>
-                  Brazil · Available remotely
+                  São Paulo, Brazil · Available remotely
                 </DetailValue>
               </DetailContent>
             </Detail>

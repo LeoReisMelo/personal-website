@@ -1,7 +1,8 @@
-import { ArrowUpRight, Code2, Layers3, Server, Zap } from 'lucide-react'
-import styled from 'styled-components'
+import { ArrowUpRight, Code2, Layers3, Server, Zap } from "lucide-react";
+import styled from "styled-components";
 
-import { Container } from '../../components/Container/Container'
+import { Container } from "../../components/Container/Container";
+import { useI18n } from "../../i18n/I18nProvider";
 
 const Section = styled.section`
   position: relative;
@@ -9,7 +10,7 @@ const Section = styled.section`
   padding: 8rem 0;
   overflow: hidden;
   background: var(--color-background-alt);
-`
+`;
 
 const SectionLine = styled.div`
   position: absolute;
@@ -18,7 +19,7 @@ const SectionLine = styled.div`
   width: 100%;
   height: 1px;
   background: var(--color-border);
-`
+`;
 
 const Content = styled.div`
   display: grid;
@@ -30,7 +31,7 @@ const Content = styled.div`
     grid-template-columns: 1fr;
     gap: 4rem;
   }
-`
+`;
 
 const Intro = styled.div`
   position: sticky;
@@ -39,7 +40,7 @@ const Intro = styled.div`
   @media (max-width: 900px) {
     position: static;
   }
-`
+`;
 
 const Eyebrow = styled.div`
   display: inline-flex;
@@ -52,7 +53,7 @@ const Eyebrow = styled.div`
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-`
+`;
 
 const EyebrowDot = styled.span`
   width: 7px;
@@ -60,7 +61,7 @@ const EyebrowDot = styled.span`
   border-radius: 50%;
   background: var(--color-brand);
   box-shadow: 0 0 0 5px var(--color-brand-soft);
-`
+`;
 
 const Title = styled.h2`
   max-width: 500px;
@@ -69,15 +70,11 @@ const Title = styled.h2`
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: 0.98;
-`
-
-const Highlight = styled.span`
-  color: var(--color-brand);
-`
+`;
 
 const Main = styled.div`
   max-width: 760px;
-`
+`;
 
 const Lead = styled.p`
   color: var(--color-text);
@@ -85,14 +82,14 @@ const Lead = styled.p`
   font-weight: 500;
   letter-spacing: -0.025em;
   line-height: 1.45;
-`
+`;
 
 const Paragraph = styled.p`
   margin-top: 1.5rem;
   color: var(--color-text-muted);
   font-size: 1rem;
   line-height: 1.85;
-`
+`;
 
 const Stats = styled.div`
   display: grid;
@@ -104,7 +101,7 @@ const Stats = styled.div`
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
-`
+`;
 
 const Stat = styled.div`
   padding: 1.75rem 1.5rem;
@@ -119,7 +116,7 @@ const Stat = styled.div`
       border-bottom: 1px solid var(--color-border);
     }
   }
-`
+`;
 
 const StatValue = styled.strong`
   display: block;
@@ -127,14 +124,14 @@ const StatValue = styled.strong`
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.04em;
-`
+`;
 
 const StatLabel = styled.span`
   display: block;
   margin-top: 0.4rem;
   color: var(--color-text-muted);
   font-size: 0.8rem;
-`
+`;
 
 const Principles = styled.div`
   display: grid;
@@ -149,7 +146,7 @@ const Principles = styled.div`
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
-`
+`;
 
 const Principle = styled.div`
   padding: 2rem;
@@ -161,7 +158,7 @@ const Principle = styled.div`
   &:hover {
     background: var(--color-surface);
   }
-`
+`;
 
 const IconWrapper = styled.div`
   display: inline-flex;
@@ -174,21 +171,21 @@ const IconWrapper = styled.div`
   border-radius: var(--radius-md);
   background: var(--color-surface);
   color: var(--color-brand);
-`
+`;
 
 const PrincipleTitle = styled.h3`
   color: var(--color-text);
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-`
+`;
 
 const PrincipleText = styled.p`
   margin-top: 0.65rem;
   color: var(--color-text-muted);
   font-size: 0.875rem;
   line-height: 1.7;
-`
+`;
 
 const Link = styled.a`
   display: inline-flex;
@@ -206,9 +203,11 @@ const Link = styled.a`
     color: var(--color-brand);
     gap: 0.75rem;
   }
-`
+`;
 
 export function About() {
+  const { t } = useI18n();
+
   return (
     <Section id="about">
       <SectionLine />
@@ -218,51 +217,36 @@ export function About() {
           <Intro>
             <Eyebrow>
               <EyebrowDot />
-              About me
+              {t.about.eyebrow}
             </Eyebrow>
 
-            <Title>
-              Building software
-              <Highlight> with purpose.</Highlight>
-            </Title>
+            <Title>{t.about.title}</Title>
           </Intro>
 
           <Main>
-            <Lead>
-              I&apos;m a Software Engineer focused on building reliable
-              systems, solving complex problems, and turning ideas into
-              software that can evolve over time.
-            </Lead>
+            <Lead>{t.about.lead}</Lead>
 
-            <Paragraph>
-              My work is mainly focused on backend engineering,
-              architecture, APIs, databases, cloud infrastructure, and
-              distributed systems. I care about more than making
-              software work — I care about making it understandable,
-              maintainable, observable, and prepared for change.
-            </Paragraph>
-
-            <Paragraph>
-              I enjoy working close to the product and understanding the
-              problem behind the code. For me, good engineering is about
-              balancing technical decisions with business needs,
-              simplicity, performance, and long-term sustainability.
-            </Paragraph>
+            {t.about.paragraphs.map((paragraph) => (
+              <Paragraph key={paragraph}>{paragraph}</Paragraph>
+            ))}
 
             <Stats>
               <Stat>
-                <StatValue>Senior</StatValue>
-                <StatLabel>Engineering level</StatLabel>
+                <StatValue>{t.about.stats.senior}</StatValue>
+
+                <StatLabel>{t.about.stats.seniorLabel}</StatLabel>
               </Stat>
 
               <Stat>
-                <StatValue>Backend</StatValue>
-                <StatLabel>Primary focus</StatLabel>
+                <StatValue>{t.about.stats.backend}</StatValue>
+
+                <StatLabel>{t.about.stats.backendLabel}</StatLabel>
               </Stat>
 
               <Stat>
-                <StatValue>Cloud</StatValue>
-                <StatLabel>Infrastructure</StatLabel>
+                <StatValue>{t.about.stats.cloud}</StatValue>
+
+                <StatLabel>{t.about.stats.cloudLabel}</StatLabel>
               </Stat>
             </Stats>
 
@@ -273,12 +257,11 @@ export function About() {
                 </IconWrapper>
 
                 <PrincipleTitle>
-                  Systems that scale
+                  {t.about.principles.backend.title}
                 </PrincipleTitle>
 
                 <PrincipleText>
-                  Designing backend systems with clear boundaries,
-                  predictable behavior, and room to evolve.
+                  {t.about.principles.backend.description}
                 </PrincipleText>
               </Principle>
 
@@ -288,12 +271,11 @@ export function About() {
                 </IconWrapper>
 
                 <PrincipleTitle>
-                  Clean engineering
+                  {t.about.principles.engineering.title}
                 </PrincipleTitle>
 
                 <PrincipleText>
-                  Writing code that is readable, testable, and easier
-                  for teams to maintain.
+                  {t.about.principles.engineering.description}
                 </PrincipleText>
               </Principle>
 
@@ -303,12 +285,11 @@ export function About() {
                 </IconWrapper>
 
                 <PrincipleTitle>
-                  Architecture with context
+                  {t.about.principles.architecture.title}
                 </PrincipleTitle>
 
                 <PrincipleText>
-                  Choosing technologies and patterns based on the actual
-                  problem instead of following trends blindly.
+                  {t.about.principles.architecture.description}
                 </PrincipleText>
               </Principle>
 
@@ -318,23 +299,22 @@ export function About() {
                 </IconWrapper>
 
                 <PrincipleTitle>
-                  Continuous improvement
+                  {t.about.principles.delivery.title}
                 </PrincipleTitle>
 
                 <PrincipleText>
-                  Learning, measuring, simplifying, and improving systems
-                  continuously as products and teams grow.
+                  {t.about.principles.delivery.description}
                 </PrincipleText>
               </Principle>
             </Principles>
 
             <Link href="#experience">
-              Explore my experience
+              {t.about.action}
               <ArrowUpRight size={16} />
             </Link>
           </Main>
         </Content>
       </Container>
     </Section>
-  )
+  );
 }

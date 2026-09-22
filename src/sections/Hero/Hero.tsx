@@ -1,7 +1,9 @@
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import styled from 'styled-components'
+
 import profilePhoto from '../../assets/perfil.jpg'
 import { Container } from '../../components/Container/Container'
+import { useI18n } from '../../i18n/I18nProvider'
 
 const Section = styled.section`
   position: relative;
@@ -227,6 +229,7 @@ const ScrollIndicator = styled.a`
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  transition: color var(--transition-fast);
 
   &:hover {
     color: var(--color-brand);
@@ -238,6 +241,8 @@ const ScrollIndicator = styled.a`
 `
 
 export function Hero() {
+  const { t } = useI18n()
+
   return (
     <Section id="home">
       <Grid />
@@ -248,28 +253,26 @@ export function Hero() {
           <Copy>
             <Eyebrow>
               <EyebrowDot />
-              Software Engineer
+              {t.hero.eyebrow}
             </Eyebrow>
 
             <Title>
-              I build software that
-              <Highlight> solves real problems.</Highlight>
+              {t.hero.title}{' '}
+              <Highlight>{t.hero.highlight}</Highlight>
             </Title>
 
             <Description>
-              Software Engineer focused on backend engineering, cloud
-              infrastructure, distributed systems, and building products
-              designed to evolve.
+              {t.hero.description}
             </Description>
 
             <Actions>
               <PrimaryButton href="#projects">
-                View my work
+                {t.hero.primaryAction}
                 <ArrowUpRight size={17} />
               </PrimaryButton>
 
               <SecondaryButton href="#contact">
-                Let&apos;s talk
+                {t.hero.secondaryAction}
               </SecondaryButton>
             </Actions>
           </Copy>
@@ -280,7 +283,7 @@ export function Hero() {
             <PhotoFrame>
               <Photo
                 src={profilePhoto}
-                alt="Leonardo Reis Melo"
+                alt={t.hero.photoAlt}
               />
             </PhotoFrame>
           </Visual>
@@ -288,7 +291,7 @@ export function Hero() {
       </Container>
 
       <ScrollIndicator href="#about">
-        Scroll
+        {t.hero.scroll}
         <ArrowDown size={14} />
       </ScrollIndicator>
     </Section>
