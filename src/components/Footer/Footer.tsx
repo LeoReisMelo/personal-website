@@ -28,8 +28,8 @@ import {
   MadeWith,
   Main,
 } from "./styles";
-import { CONTACT } from "../../sections/Contact/Contact";
 import { useI18n } from "../../i18n/I18nProvider";
+import { CONTACT } from "../../utils/constants/contacts";
 
 export function Footer() {
   const { t } = useI18n();

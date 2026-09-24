@@ -5,287 +5,285 @@ import {
   Layers3,
   LockKeyhole,
   Server,
-} from 'lucide-react'
-import styled from 'styled-components'
+} from "lucide-react";
 
-import { Container } from '../../components/Container/Container'
+import { FaAws } from "react-icons/fa6";
+import { VscAzureDevops } from "react-icons/vsc";
 
-const Section = styled.section`
-  width: 100%;
-  padding: 9rem 0;
-  background: var(--color-background-alt);
-`
+import {
+  SiDocker,
+  SiGithubactions,
+  SiGooglecloud,
+  SiGraphql,
+  SiJavascript,
+  SiMongodb,
+  SiMysql,
+  SiNestjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiReact,
+  SiTypescript,
+  SiVite,
+} from "react-icons/si";
 
-const Header = styled.div`
-  display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
-  gap: 6rem;
-  align-items: end;
-  margin-bottom: 4rem;
+import type { IconType } from "react-icons";
 
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-`
+import { Container } from "../../components/Container/Container";
 
-const Eyebrow = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.25rem;
-  color: var(--color-brand);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-`
+import { useI18n } from "../../i18n/I18nProvider";
 
-const EyebrowLine = styled.span`
-  width: 28px;
-  height: 1px;
-  background: var(--color-brand);
-`
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardGlow,
+  CardHeader,
+  CardTitle,
+  Description,
+  Eyebrow,
+  EyebrowDot,
+  Grid,
+  Header,
+  Highlight,
+  Icon,
+  Number,
+  Section,
+  Technologies,
+  Technology,
+  Title,
+} from "./styles";
 
-const Title = styled.h2`
-  max-width: 650px;
-  color: var(--color-text);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 700;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-`
+type ExpertiseKey =
+  | "backend"
+  | "cloud"
+  | "data"
+  | "architecture"
+  | "frontend"
+  | "security";
 
-const Description = styled.p`
-  max-width: 620px;
-  justify-self: end;
-  color: var(--color-text-muted);
-  font-size: 1rem;
-  line-height: 1.8;
+type Technology = {
+  label: string;
+  icon: IconType;
+  color: string;
+  showLabel?: boolean;
+};
 
-  @media (max-width: 900px) {
-    justify-self: start;
-  }
-`
+type ExpertiseItem = {
+  number: string;
+  key: ExpertiseKey;
+  icon: IconType;
+  technologies: Technology[];
+};
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  background: var(--color-border);
-
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
-`
-
-const Card = styled.div`
-  position: relative;
-  min-height: 300px;
-  padding: 2rem;
-  overflow: hidden;
-  background: var(--color-surface);
-  transition:
-    background var(--transition-normal),
-    transform var(--transition-normal);
-
-  &:hover {
-    background: var(--color-surface-hover);
-  }
-`
-
-const CardGlow = styled.div`
-  position: absolute;
-  top: -100px;
-  right: -100px;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: var(--color-brand);
-  opacity: 0;
-  filter: blur(80px);
-  transition: opacity var(--transition-normal);
-  pointer-events: none;
-
-  ${Card}:hover & {
-    opacity: 0.08;
-  }
-`
-
-const CardHeader = styled.div`
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-`
-
-const Icon = styled.div`
-  display: flex;
-  width: 48px;
-  height: 48px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  background: var(--color-background);
-  color: var(--color-brand);
-`
-
-const Number = styled.span`
-  color: var(--color-text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-`
-
-const CardContent = styled.div`
-  position: relative;
-  z-index: 1;
-  margin-top: 5rem;
-`
-
-const CardTitle = styled.h3`
-  color: var(--color-text);
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-`
-
-const CardDescription = styled.p`
-  max-width: 340px;
-  margin-top: 0.75rem;
-  color: var(--color-text-muted);
-  font-size: 0.85rem;
-  line-height: 1.7;
-`
-
-const Technologies = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 1.25rem;
-`
-
-const Technology = styled.span`
-  padding: 0.35rem 0.6rem;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-`
-
-const expertise = [
+const expertise: ExpertiseItem[] = [
   {
-    number: '01',
-    title: 'Backend Engineering',
-    description:
-      'Building reliable APIs and backend systems with a focus on maintainability, performance, and clear boundaries.',
-    technologies: ['Node.js', 'NestJS', 'TypeScript', 'REST', 'GraphQL'],
+    number: "01",
+    key: "backend",
     icon: Server,
+    technologies: [
+      {
+        label: "Node.js",
+        icon: SiNodedotjs,
+        color: "#5FA04E",
+      },
+      {
+        label: "NestJS",
+        icon: SiNestjs,
+        color: "#E0234E",
+      },
+      {
+        label: "TypeScript",
+        icon: SiTypescript,
+        color: "#3178C6",
+      },
+      {
+        label: "REST",
+        icon: Server,
+        color: "var(--color-text-secondary)",
+        showLabel: true,
+      },
+      {
+        label: "GraphQL",
+        icon: SiGraphql,
+        color: "#E10098",
+      },
+    ],
   },
   {
-    number: '02',
-    title: 'Cloud & Infrastructure',
-    description:
-      'Designing and operating cloud-based applications with scalable infrastructure and production-ready environments.',
-    technologies: ['AWS', 'GCP', 'Azure', 'Docker', 'CI/CD'],
+    number: "02",
+    key: "cloud",
     icon: Cloud,
+    technologies: [
+      {
+        label: "AWS",
+        icon: FaAws,
+        color: "#FF9900",
+      },
+      {
+        label: "GCP",
+        icon: SiGooglecloud,
+        color: "#4285F4",
+      },
+      {
+        label: "Azure",
+        icon: VscAzureDevops,
+        color: "#0078D4",
+      },
+      {
+        label: "Docker",
+        icon: SiDocker,
+        color: "#2496ED",
+      },
+      {
+        label: "GitHub Actions",
+        icon: SiGithubactions,
+        color: "#2088FF",
+      },
+    ],
   },
   {
-    number: '03',
-    title: 'Data & Persistence',
-    description:
-      'Working with relational and NoSQL databases according to the consistency, querying, and scalability needs of each system.',
-    technologies: [
-      'PostgreSQL',
-      'MySQL',
-      'MongoDB',
-      'DynamoDB',
-    ],
+    number: "03",
+    key: "data",
     icon: Database,
+    technologies: [
+      {
+        label: "PostgreSQL",
+        icon: SiPostgresql,
+        color: "#4169E1",
+      },
+      {
+        label: "MySQL",
+        icon: SiMysql,
+        color: "#4479A1",
+      },
+      {
+        label: "MongoDB",
+        icon: SiMongodb,
+        color: "#47A248",
+      },
+      {
+        label: "DynamoDB",
+        icon: FaAws,
+        color: "#FF9900",
+      },
+    ],
   },
   {
-    number: '04',
-    title: 'Software Architecture',
-    description:
-      'Designing systems around clear responsibilities, modularity, evolution, and business requirements.',
-    technologies: [
-      'Clean Architecture',
-      'DDD',
-      'Microservices',
-      'Distributed Systems',
-    ],
+    number: "04",
+    key: "architecture",
     icon: Layers3,
-  },
-  {
-    number: '05',
-    title: 'Frontend Engineering',
-    description:
-      'Building modern interfaces when the product requires full-stack ownership and close integration with backend systems.',
-    technologies: ['React', 'TypeScript', 'Vite', 'JavaScript'],
-    icon: Code2,
-  },
-  {
-    number: '06',
-    title: 'Security & Reliability',
-    description:
-      'Applying engineering practices that make applications safer, observable, testable, and easier to operate.',
     technologies: [
-      'Authentication',
-      'Authorization',
-      'Testing',
-      'Observability',
+      {
+        label: "Clean Architecture",
+        icon: Layers3,
+        color: "var(--color-text-secondary)",
+        showLabel: true,
+      },
+      {
+        label: "DDD",
+        icon: Layers3,
+        color: "var(--color-text-secondary)",
+        showLabel: true,
+      },
+      {
+        label: "Microservices",
+        icon: Layers3,
+        color: "var(--color-text-secondary)",
+        showLabel: true,
+      },
+      {
+        label: "Distributed Systems",
+        icon: Layers3,
+        color: "var(--color-text-secondary)",
+        showLabel: true,
+      },
     ],
-    icon: LockKeyhole,
   },
-]
+  {
+    number: "05",
+    key: "frontend",
+    icon: Code2,
+    technologies: [
+      {
+        label: "React",
+        icon: SiReact,
+        color: "#61DAFB",
+      },
+      {
+        label: "TypeScript",
+        icon: SiTypescript,
+        color: "#3178C6",
+      },
+      {
+        label: "Vite",
+        icon: SiVite,
+        color: "#646CFF",
+      },
+      {
+        label: "JavaScript",
+        icon: SiJavascript,
+        color: "#F7DF1E",
+      },
+    ],
+  },
+  {
+    number: "06",
+    key: "security",
+    icon: LockKeyhole,
+    technologies: [
+      {
+        label: "Authentication",
+        icon: LockKeyhole,
+        color: "var(--color-text-secondary)",
+        showLabel: true,
+      },
+      {
+        label: "Authorization",
+        icon: LockKeyhole,
+        color: "var(--color-text-secondary)",
+        showLabel: true,
+      },
+      {
+        label: "Testing",
+        icon: Code2,
+        color: "var(--color-text-secondary)",
+        showLabel: true,
+      },
+      {
+        label: "Observability",
+        icon: Server,
+        color: "var(--color-text-secondary)",
+        showLabel: true,
+      },
+    ],
+  },
+];
 
 export function Expertise() {
+  const { t } = useI18n();
+
   return (
     <Section id="expertise">
       <Container>
         <Header>
           <div>
             <Eyebrow>
-              <EyebrowLine />
-              Technical expertise
+              <EyebrowDot />
+              {t.expertise.eyebrow}
             </Eyebrow>
 
             <Title>
-              Engineering across
-              <br />
-              the stack.
+              {t.expertise.title} <Highlight>{t.expertise.highlight}</Highlight>
             </Title>
           </div>
 
-          <Description>
-            My work sits primarily around backend engineering and
-            distributed systems, with experience across cloud,
-            databases, architecture, frontend, and production
-            environments.
-          </Description>
+          <Description>{t.expertise.description}</Description>
         </Header>
 
         <Grid>
           {expertise.map(
-            ({
-              number,
-              title,
-              description,
-              technologies,
-              icon: IconComponent,
-            }) => (
-              <Card key={title}>
+            ({ number, key, technologies, icon: IconComponent }) => (
+              <Card key={key}>
                 <CardGlow />
 
                 <CardHeader>
@@ -297,18 +295,28 @@ export function Expertise() {
                 </CardHeader>
 
                 <CardContent>
-                  <CardTitle>{title}</CardTitle>
+                  <CardTitle>{t.expertise.items[key].title}</CardTitle>
 
                   <CardDescription>
-                    {description}
+                    {t.expertise.items[key].description}
                   </CardDescription>
 
                   <Technologies>
-                    {technologies.map((technology) => (
-                      <Technology key={technology}>
-                        {technology}
-                      </Technology>
-                    ))}
+                    {technologies.map(
+                      ({ label, icon: TechnologyIcon, color, showLabel }) => (
+                        <Technology
+                          key={label}
+                          title={label}
+                          aria-label={label}
+                          $color={color}
+                          $showLabel={showLabel}
+                        >
+                          <TechnologyIcon size={16} />
+
+                          {showLabel && <span>{label}</span>}
+                        </Technology>
+                      ),
+                    )}
                   </Technologies>
                 </CardContent>
               </Card>
@@ -317,5 +325,5 @@ export function Expertise() {
         </Grid>
       </Container>
     </Section>
-  )
+  );
 }
